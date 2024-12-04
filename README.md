@@ -1,7 +1,7 @@
 # **Tesla Supply Chain Demand Forecasting - Project Documentation**
 
 ## **Project Overview**
-In this project, we have developed a demand forecasting system for Tesla’s supply chain that uses real-time news articles. The articles are analyzed through sentiment analysis to predict if there will be high demand or low demand for automotive parts. By leveraging machine learning, this system can identify market trends, predict demand fluctuations, and optimize inventory management.
+In this project, I have developed a demand forecasting system for Tesla’s supply chain that uses real-time news articles. The articles are analyzed through sentiment analysis to predict if there will be high demand or low demand for automotive parts. By leveraging machine learning, this system can identify market trends, predict demand fluctuations, and optimize inventory management.
 
 ## **Problem Statement**
 The goal is to predict demand for automotive parts based on external market signals (i.e., news articles). If there are signs of disruptions in the supply chain (e.g., shortage of critical components), the model should forecast a high demand, otherwise, it should predict low demand.
@@ -66,7 +66,7 @@ Store sensitive details like MySQL credentials and NewsAPI key.
 
 ## **2. Data Collection and Integration**
 ### **MySQL Database Connection:**
-Using MySQL as the backend database, we store the articles fetched from NewsAPI in a structured format. The database is set up to hold essential fields like title, description, URL, and published date of articles related to supply chain and logistics.
+Using MySQL as the backend database, I stored the articles fetched from NewsAPI in a structured format. The database is set up to hold essential fields like title, description, URL, and published date of articles related to supply chain and logistics.
 
 ```python
 # Connect to MySQL Database
@@ -89,9 +89,9 @@ df = pd.DataFrame(rows, columns=["title", "description", "publishedAt"])
 ```
 
 ### **Producer (Kafka):**
-In the producer script, we connect to NewsAPI, fetch real-time news articles related to supply chain and logistics, and stream the data through Apache Kafka. The Kafka consumer will then process this data and store it in MySQL.
+In the producer script, I connected to the NewsAPI, fetch real-time news articles related to supply chain and logistics, and stream the data through Apache Kafka. The Kafka consumer will then process this data and store it in MySQL.
 
-NewsAPI provides a JSON response that contains articles, which we parse and then push to a Kafka topic. This ensures real-time streaming of news data for prediction.
+NewsAPI provides a JSON response that contains articles, which I parsed and then pushed to a Kafka topic. This ensures real-time streaming of news data for prediction.
 
 ```python
 # Fetching data from NewsAPI and streaming to Kafka
@@ -129,7 +129,7 @@ def clean_text(text):
 ```
 
 ### **TF-IDF Vectorization:**
-After cleaning the text, we use TF-IDF to convert the text into numeric vectors. This helps capture the importance of words across all documents.
+After cleaning the text, I used TF-IDF to convert the text into numeric vectors. This helps capture the importance of words across all documents.
 
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -140,7 +140,7 @@ X_tfidf = vectorizer.fit_transform(df['cleaned_description'])
 ```
 
 ### **Sentiment Analysis:**
-Using TextBlob, we extract the sentiment polarity of each article's description. The sentiment score is then used to predict demand: positive sentiment indicates high demand and negative sentiment indicates low demand.
+Using TextBlob, I extracted the sentiment polarity of each article's description. The sentiment score is then used to predict demand: positive sentiment indicates high demand and negative sentiment indicates low demand.
 
 ```python
 def get_sentiment(text):
@@ -150,7 +150,7 @@ def get_sentiment(text):
 
 ## **4. Model Building**
 ### **Random Forest Classifier:**
-We chose the Random Forest Classifier for demand prediction because it handles large datasets well and prevents overfitting through ensemble learning.
+I chose the Random Forest Classifier for demand prediction because it handles large datasets well and prevents overfitting through ensemble learning.
 
 - Cross-validation was used to evaluate the model’s generalizability.
 - Hyperparameter tuning was done using GridSearchCV to find the best parameters for the classifier.
@@ -171,10 +171,10 @@ grid_search = GridSearchCV(RandomForestClassifier(random_state=42), param_grid, 
 grid_search.fit(X_train, y_train)
 ```
 
-After hyperparameter tuning, the model was trained on the dataset, and we evaluated its performance using classification metrics.
+After hyperparameter tuning, the model was trained on the dataset, and I evaluated its performance using classification metrics.
 
 ## **5. Handling Class Imbalance with SMOTE**
-The dataset exhibited class imbalance, where most articles predicted low demand. To address this, we applied SMOTE (Synthetic Minority Over-sampling Technique) to balance the class distribution.
+The dataset exhibited class imbalance, where most articles predicted low demand. To address this, I applied SMOTE (Synthetic Minority Over-sampling Technique) to balance the class distribution.
 
 ```python
 from imblearn.over_sampling import SMOTE
@@ -199,7 +199,7 @@ print(classification_report(y_test, y_pred))
 ```
 
 ### **Cross-validation:**
-We further evaluated the model by performing cross-validation to ensure it is generalizable to unseen data.
+I further evaluated the model by performing cross-validation to ensure it is generalizable to unseen data.
 
 ```python
 from sklearn.model_selection import cross_val_score
@@ -208,7 +208,7 @@ cv_scores = cross_val_score(clf, X_train, y_train, cv=5)
 
 ## **7. Visualization and Insights**
 ### **Sentiment Distribution:**
-We visualized the sentiment score distribution to understand the sentiment distribution across articles.
+I visualized the sentiment score distribution to understand the sentiment distribution across articles.
 
 ```python
 import seaborn as sns
@@ -224,7 +224,7 @@ plt.show()
 ```
 
 ### **Predicted Demand Distribution:**
-We also visualized how well the model predicted high and low demand based on news articles.
+I also visualized how well the model predicted high and low demand based on news articles.
 
 ```python
 # Predicted Demand Distribution Plot
